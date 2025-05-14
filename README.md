@@ -1,5 +1,5 @@
-#Technical Specification: Synchro Tech - Command Center
-##Project Overview
+# Technical Specification: Synchro Tech - Command Center
+## Project Overview
 Command Center is a multi-tenant, multi-industry business management platform developed by Synchro Tech. The system provides a comprehensive suite of business management tools adaptable to various industries including store management, construction, consultancy, accounting, project management, task management, booking scheduling, and real estate.
 The platform is designed with a modular architecture allowing for high reusability, maintainability, and future extensibility across industries. It features responsive design for compatibility with both mobile and desktop browsers.
 
