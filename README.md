@@ -365,6 +365,7 @@ util/
 ├── CryptoUtils.java                   - Encryption/decryption utilities
 ├── JsonUtils.java                     - JSON processing utilities
 └── RequestUtils.java                  - HTTP request utilities
+```
 
 #### 1.1.11 Resources
 
