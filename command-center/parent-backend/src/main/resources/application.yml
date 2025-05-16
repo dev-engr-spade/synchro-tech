@@ -3,3 +3,11 @@ server:
 spring:
   application:
     name: commandcenter 
+app:
+  profile-picture:
+    storage: local # or 's3'
+    local-dir: uploads/profile-pictures/
+    s3:
+      bucket: your-bucket-name
+      region: us-east-1
+      base-url: https://your-bucket-name.s3.amazonaws.com/ 

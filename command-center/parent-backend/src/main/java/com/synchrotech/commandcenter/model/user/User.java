@@ -38,4 +38,9 @@ public class User {
     private List<String> mfaRecoveryCodes;
     private String mfaEmailCode;
     private Long mfaEmailCodeExpiry;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String profilePictureUrl;
+    private String departmentId;
 } 

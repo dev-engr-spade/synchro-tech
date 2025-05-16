@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
+import javax.validation.constraints.NotNull;
 
 /**
  * DTO for user requests.
@@ -70,4 +72,48 @@ public class MfaRecoveryRequest {
     private String userId;
     @NotBlank
     private String recoveryCode;
+}
+
+@Getter
+@Setter
+public class UserCreateRequest {
+    @NotBlank
+    private String username;
+    @NotBlank
+    @Email
+    private String email;
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    private String phone;
+    private String profilePictureUrl;
+    private String departmentId;
+    private List<String> roleIds;
+    private String tenantId;
+    private boolean active = true;
+}
+
+@Getter
+@Setter
+public class UserUpdateRequest {
+    @NotBlank
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String profilePictureUrl;
+    private String departmentId;
+    private List<String> roleIds;
+    private boolean active;
+}
+
+@Getter
+@Setter
+public class BulkUserCreateRequest {
+    @NotBlank
+    private String tenantId;
+    @NotNull
+    @Size(min = 1)
+    private List<UserCreateRequest> users;
 } 
