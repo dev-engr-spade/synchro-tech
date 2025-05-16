@@ -1,11 +1,11 @@
 package com.synchrotech.commandcenter.repository.user;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import com.synchrotech.commandcenter.model.user.Permission;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * Repository for permission entities.
  */
 public interface PermissionRepository extends MongoRepository<Permission, String> {
-    // Add custom query methods if needed
+    Permission findByName(String name);
 } 

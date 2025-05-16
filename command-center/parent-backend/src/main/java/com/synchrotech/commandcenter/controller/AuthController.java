@@ -1,7 +1,17 @@
 package com.synchrotech.commandcenter.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.synchrotech.commandcenter.dto.request.user.UserRegistrationRequest;
+import com.synchrotech.commandcenter.dto.request.user.LoginRequest;
+import com.synchrotech.commandcenter.dto.request.user.PasswordResetRequest;
+import com.synchrotech.commandcenter.dto.request.user.PasswordResetConfirmRequest;
+import com.synchrotech.commandcenter.dto.request.user.MfaSetupRequest;
+import com.synchrotech.commandcenter.dto.request.user.MfaValidateRequest;
+import com.synchrotech.commandcenter.dto.request.user.MfaRecoveryRequest;
+import com.synchrotech.commandcenter.dto.response.auth.AuthResponse;
+import com.synchrotech.commandcenter.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 /**
  * Authentication endpoints.
@@ -9,5 +19,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    // Define authentication endpoints here
+    private final UserService userService;
+
+    @Autowired
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/register")
+    public AuthResponse register(@Valid @RequestBody UserRegistrationRequest request) {
+        return userService.registerUser(request);
+    }
+
+    @GetMapping("/verify")
+    public AuthResponse verifyEmail(@RequestParam("token") String token) {
+        return userService.verifyEmail(token);
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@Valid @RequestBody LoginRequest request) {
+        return userService.login(request);
+    }
+
+    @PostMapping("/refresh")
+    public AuthResponse refresh(@RequestParam("refreshToken") String refreshToken) {
+        return userService.refreshToken(refreshToken);
+    }
+
+    @PostMapping("/logout")
+    public AuthResponse logout(@RequestParam("userId") String userId) {
+        userService.logout(userId);
+        return new AuthResponse(true, "Logged out", userId, null, null);
+    }
+
+    @PostMapping("/request-reset")
+    public AuthResponse requestReset(@Valid @RequestBody PasswordResetRequest request) {
+        return userService.requestPasswordReset(request);
+    }
+
+    @PostMapping("/reset-password")
+    public AuthResponse resetPassword(@Valid @RequestBody PasswordResetConfirmRequest request) {
+        return userService.confirmPasswordReset(request);
+    }
+
+    @PostMapping("/mfa/setup")
+    public AuthResponse setupMfa(@Valid @RequestBody MfaSetupRequest request) {
+        return userService.setupMfa(request);
+    }
+
+    @PostMapping("/mfa/validate")
+    public AuthResponse validateMfa(@Valid @RequestBody MfaValidateRequest request) {
+        return userService.validateMfa(request);
+    }
+
+    @PostMapping("/mfa/recovery")
+    public AuthResponse useMfaRecovery(@Valid @RequestBody MfaRecoveryRequest request) {
+        return userService.useMfaRecoveryCode(request);
+    }
 } 

@@ -27,4 +27,15 @@ public class User {
     private boolean active;
     private Long createdAt;
     private Long updatedAt;
+    private boolean emailVerified;
+    private String verificationToken;
+    private Long verificationTokenExpiry;
+    private String resetToken;
+    private Long resetTokenExpiry;
+    private boolean mfaEnabled;
+    private String mfaType; // "EMAIL" or "TOTP"
+    private String mfaSecret; // for TOTP
+    private List<String> mfaRecoveryCodes;
+    private String mfaEmailCode;
+    private Long mfaEmailCodeExpiry;
 } 
