@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getRoleAuditTrail } from '../../../api/services/roles';
 import { Box, Typography, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
 
