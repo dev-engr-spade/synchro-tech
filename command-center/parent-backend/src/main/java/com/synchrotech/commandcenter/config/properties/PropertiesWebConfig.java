@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.synchrotech.commandcenter.util.ApiCallCounterInterceptor;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class PropertiesWebConfig implements WebMvcConfigurer {
     @Autowired
     private ApiCallCounterInterceptor apiCallCounterInterceptor;
 
