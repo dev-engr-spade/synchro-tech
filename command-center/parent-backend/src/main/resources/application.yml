@@ -2,7 +2,9 @@ server:
   port: 8080
 spring:
   application:
-    name: commandcenter 
+    name: commandcenter
+  profiles:
+    active: dev
 app:
   profile-picture:
     storage: local # or 's3'

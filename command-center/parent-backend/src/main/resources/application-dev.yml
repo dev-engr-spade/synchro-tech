@@ -1,5 +1,4 @@
 spring:
-  profiles: dev
   data:
     mongodb:
-      uri: mongodb://localhost:27017/synchrotech_dev 
+      uri: mongodb+srv://devengrspade:ZKHqfaeUAsKbzlgI@synchro-tech.dxbyrrp.mongodb.net/commandcenter?retryWrites=true&w=majority&appName=synchro-tech
