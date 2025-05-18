@@ -144,7 +144,7 @@ public class UserControllerTest {
         User user = User.builder().id("user123").build();
         Mockito.when(userService.findById("user123")).thenReturn(Optional.of(user));
         Mockito.when(userService.updateUser(Mockito.eq("user123"), Mockito.any(User.class))).thenReturn(user);
-        Mockito.when(profilePictureStorageService.store(Mockito.eq("user123"), Mockito.any())).thenReturn("/uploads/profile-pictures/user123_pic.jpg");
+        Mockito.when(profilePictureStorageService.store(Mockito.eq("user123"), Mockito.anyString(), Mockito.any())).thenReturn("/uploads/profile-pictures/user123_pic.jpg");
         MockMultipartFile file = new MockMultipartFile("file", "pic.jpg", MediaType.IMAGE_JPEG_VALUE, "dummy image content".getBytes());
         mockMvc.perform(multipart("/api/users/user123/profile-picture").file(file))
                 .andExpect(status().isOk())
@@ -156,7 +156,7 @@ public class UserControllerTest {
         User user = User.builder().id("user123").build();
         Mockito.when(userService.findById("user123")).thenReturn(Optional.of(user));
         Mockito.when(userService.updateUser(Mockito.eq("user123"), Mockito.any(User.class))).thenReturn(user);
-        Mockito.when(profilePictureStorageService.store(Mockito.eq("user123"), Mockito.any())).thenReturn("https://bucket.s3.amazonaws.com/profile-pictures/user123_pic.jpg");
+        Mockito.when(profilePictureStorageService.store(Mockito.eq("user123"), Mockito.anyString(), Mockito.any())).thenReturn("https://bucket.s3.amazonaws.com/profile-pictures/user123_pic.jpg");
         MockMultipartFile file = new MockMultipartFile("file", "pic.jpg", MediaType.IMAGE_JPEG_VALUE, "dummy image content".getBytes());
         mockMvc.perform(multipart("/api/users/user123/profile-picture").file(file))
                 .andExpect(status().isOk())

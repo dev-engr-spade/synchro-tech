@@ -2,4 +2,4 @@ spring:
   profiles: prod
   data:
     mongodb:
-      uri: mongodb://localhost:27017/synchrotech_prod 
+      uri: mongodb://localhost:27017/synchrotech_dev

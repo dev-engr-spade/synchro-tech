@@ -33,7 +33,7 @@ public class ProfilePictureStorageServiceTest {
     @Test
     void saveLocally_shouldReturnUrl() throws IOException {
         MockMultipartFile file = new MockMultipartFile("file", "pic.jpg", "image/jpeg", "dummy".getBytes());
-        String url = storageService.store("user1", file);
+        String url = storageService.store("user1", "tenant1", file);
         assertTrue(url.contains("test-uploads/"));
         // Clean up
         new File(url.replaceFirst("/", "")).delete();
@@ -45,7 +45,7 @@ public class ProfilePictureStorageServiceTest {
         // S3Client is created inside method, so we can't mock it directly here without refactor
         // This test will just check that the method returns the expected URL format
         MockMultipartFile file = new MockMultipartFile("file", "pic.jpg", "image/jpeg", "dummy".getBytes());
-        String url = storageService.store("user1", file);
+        String url = storageService.store("user1", "tenant1", file);
         assertTrue(url.startsWith("https://test-bucket.s3.amazonaws.com/profile-pictures/"));
     }
 

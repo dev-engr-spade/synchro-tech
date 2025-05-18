@@ -1,4 +1,11 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://devengrspade:ZKHqfaeUAsKbzlgI@synchro-tech.dxbyrrp.mongodb.net/commandcenter?retryWrites=true&w=majority&appName=synchro-tech
+      uri: mongodb+srv://devengrspade:ZKHqfaeUAsKbzlgI@synchro-tech.dxbyrrp.moDngodb.net/commandcenter?retryWrites=true&w=majority&appName=synchro-tech
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 587
+    username: a413ff1b305588
+    password: 12863bb3e9e87c
+    properties:
+      mail.smtp.auth: true
