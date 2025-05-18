@@ -8,9 +8,6 @@ import com.synchrotech.commandcenter.dto.response.auth.AuthResponse;
 import com.synchrotech.commandcenter.dto.request.user.LoginRequest;
 import com.synchrotech.commandcenter.dto.request.user.PasswordResetRequest;
 import com.synchrotech.commandcenter.dto.request.user.PasswordResetConfirmRequest;
-import com.synchrotech.commandcenter.dto.request.user.MfaSetupRequest;
-import com.synchrotech.commandcenter.dto.request.user.MfaValidateRequest;
-import com.synchrotech.commandcenter.dto.request.user.MfaRecoveryRequest;
 
 /**
  * Service interface for user operations.
@@ -28,7 +25,4 @@ public interface UserService {
     void logout(String userId);
     AuthResponse requestPasswordReset(PasswordResetRequest request);
     AuthResponse confirmPasswordReset(PasswordResetConfirmRequest request);
-    AuthResponse setupMfa(MfaSetupRequest request);
-    AuthResponse validateMfa(MfaValidateRequest request);
-    AuthResponse useMfaRecoveryCode(MfaRecoveryRequest request);
 } 

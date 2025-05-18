@@ -3,6 +3,8 @@ package com.synchrotech.commandcenter.service.module;
 import com.synchrotech.commandcenter.model.module.Inventory;
 import com.synchrotech.commandcenter.repository.module.InventoryRepository;
 import com.synchrotech.commandcenter.security.TenantContextHolder;
+import com.synchrotech.commandcenter.exception.ResourceNotFoundException;
+import com.synchrotech.commandcenter.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +32,20 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Inventory updateInventory(String id, Inventory inventory) {
         Optional<Inventory> existingOpt = inventoryRepository.findById(id);
-        if (existingOpt.isEmpty()) throw new RuntimeException("Inventory not found");
+        if (existingOpt.isEmpty()) throw new ResourceNotFoundException("Inventory not found");
         Inventory existing = existingOpt.get();
         if (!TenantContextHolder.getTenant().equals(existing.getTenantId())) {
-            throw new RuntimeException("Unauthorized tenant access");
+            throw new UnauthorizedException("Unauthorized tenant access");
         }
-        // Update fields as needed
-        existing.setProductName(inventory.getProductName());
-        // ... update other fields
+        existing.setProductId(inventory.getProductId());
+        existing.setVariantId(inventory.getVariantId());
+        existing.setLocationId(inventory.getLocationId());
+        existing.setQuantity(inventory.getQuantity());
+        existing.setReservedQuantity(inventory.getReservedQuantity());
+        existing.setReorderLevel(inventory.getReorderLevel());
+        existing.setOptimalStock(inventory.getOptimalStock());
+        existing.setCreatedAt(inventory.getCreatedAt());
+        existing.setUpdatedAt(inventory.getUpdatedAt());
         return inventoryRepository.save(existing);
     }
 
@@ -58,7 +66,7 @@ public class InventoryServiceImpl implements InventoryService {
         if (invOpt.isPresent() && TenantContextHolder.getTenant().equals(invOpt.get().getTenantId())) {
             inventoryRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Unauthorized tenant access");
+            throw new UnauthorizedException("Unauthorized tenant access");
         }
     }
 } 

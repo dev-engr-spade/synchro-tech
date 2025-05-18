@@ -4,7 +4,9 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Document(collection = "users")
 @Data
@@ -21,26 +23,25 @@ public class User {
     @Indexed(unique = true)
     private String email;
 
-    private String password;
+    private String passwordHash;
     private List<String> roles;
     private String tenantId;
     private boolean active;
-    private Long createdAt;
-    private Long updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
     private boolean emailVerified;
     private String verificationToken;
     private Long verificationTokenExpiry;
     private String resetToken;
     private Long resetTokenExpiry;
-    private boolean mfaEnabled;
-    private String mfaType; // "EMAIL" or "TOTP"
-    private String mfaSecret; // for TOTP
-    private List<String> mfaRecoveryCodes;
-    private String mfaEmailCode;
-    private Long mfaEmailCodeExpiry;
     private String firstName;
     private String lastName;
     private String phone;
     private String profilePictureUrl;
     private String departmentId;
+    private Map<String, Object> profile;
+    private Map<String, Object> preferences;
+    private UserStatus status;
+    private Date lastLogin;
+    private List<String> roleAssignmentAudit;
 } 

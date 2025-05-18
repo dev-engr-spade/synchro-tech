@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
@@ -47,8 +47,8 @@ public class UserController {
                 .roles(request.getRoleIds())
                 .tenantId(request.getTenantId())
                 .active(request.isActive())
-                .createdAt(System.currentTimeMillis())
-                .updatedAt(System.currentTimeMillis())
+                .createdAt(new java.util.Date())
+                .updatedAt(new java.util.Date())
                 .build();
         return userService.createUser(user);
     }
@@ -64,7 +64,7 @@ public class UserController {
                 .departmentId(request.getDepartmentId())
                 .roles(request.getRoleIds())
                 .active(request.isActive())
-                .updatedAt(System.currentTimeMillis())
+                .updatedAt(new java.util.Date())
                 .build();
         return userService.updateUser(id, user);
     }
@@ -98,8 +98,8 @@ public class UserController {
                     .roles(u.getRoleIds())
                     .tenantId(request.getTenantId())
                     .active(u.isActive())
-                    .createdAt(System.currentTimeMillis())
-                    .updatedAt(System.currentTimeMillis())
+                    .createdAt(new java.util.Date())
+                    .updatedAt(new java.util.Date())
                     .build();
             return userService.createUser(user);
         }).toList();
@@ -124,7 +124,7 @@ public class UserController {
         User user = userService.findById(id).orElse(null);
         if (user != null) {
             user.setActive(active);
-            user.setUpdatedAt(System.currentTimeMillis());
+            user.setUpdatedAt(new java.util.Date());
             return userService.updateUser(id, user);
         }
         return null;
@@ -140,12 +140,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
         }
         try {
-            String url = profilePictureStorageService.store(id, file);
             User user = userService.findById(id).orElse(null);
-            if (user != null) {
-                user.setProfilePictureUrl(url);
-                userService.updateUser(id, user);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
+            String tenantId = user.getTenantId();
+            String url = profilePictureStorageService.store(id, tenantId, file);
+            user.setProfilePictureUrl(url);
+            userService.updateUser(id, user);
             return ResponseEntity.ok(url);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");

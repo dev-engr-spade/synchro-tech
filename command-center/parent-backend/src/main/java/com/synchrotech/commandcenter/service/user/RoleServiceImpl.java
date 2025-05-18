@@ -9,6 +9,7 @@ import com.synchrotech.commandcenter.repository.user.RoleAuditLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -72,11 +73,10 @@ public class RoleServiceImpl implements RoleService {
         Role clone = Role.builder()
                 .name(newName)
                 .description(description)
-                .permissionIds(source.getPermissionIds())
+                .permissions(source.getPermissions())
                 .tenantId(tenantId)
-                .clonedFromRoleId(source.getId())
-                .createdAt(System.currentTimeMillis())
-                .updatedAt(System.currentTimeMillis())
+                .createdAt(new Date())
+                .updatedAt(new Date())
                 .build();
         Role saved = roleRepository.save(clone);
         roleAuditLogRepository.save(RoleAuditLog.builder()

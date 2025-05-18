@@ -15,7 +15,7 @@ public class EmailService {
     }
 
     public void sendVerificationEmail(String to, String username, String verificationLink) {
-        SimpleMailMessage message = new SimpleMailMessage();
+        org.springframework.mail.SimpleMailMessage message = new org.springframework.mail.SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Verify your email - SynchroTech Command Center");
         message.setText("Hello " + username + ",\n\nPlease verify your email by clicking the link below:\n" + verificationLink + "\n\nIf you did not register, please ignore this email.");

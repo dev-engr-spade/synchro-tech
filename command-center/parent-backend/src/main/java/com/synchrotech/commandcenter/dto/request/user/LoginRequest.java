@@ -1,7 +1,7 @@
 package com.synchrotech.commandcenter.dto.request.user;
 
 import lombok.Data;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Data
 public class LoginRequest {

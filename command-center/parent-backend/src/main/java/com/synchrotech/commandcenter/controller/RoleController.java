@@ -16,6 +16,7 @@ import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import java.util.Date;
 
 /**
  * Role management endpoints.
@@ -39,10 +40,10 @@ public class RoleController {
         Role role = Role.builder()
                 .name(request.getName())
                 .description(request.getDescription())
-                .permissionIds(request.getPermissionIds())
+                .permissions(request.getPermissionIds())
                 .tenantId(request.getTenantId())
-                .createdAt(System.currentTimeMillis())
-                .updatedAt(System.currentTimeMillis())
+                .createdAt(new Date())
+                .updatedAt(new Date())
                 .build();
         return roleService.createRole(role);
     }
@@ -53,8 +54,8 @@ public class RoleController {
                 .id(id)
                 .name(request.getName())
                 .description(request.getDescription())
-                .permissionIds(request.getPermissionIds())
-                .updatedAt(System.currentTimeMillis())
+                .permissions(request.getPermissionIds())
+                .updatedAt(new Date())
                 .build();
         return roleService.updateRole(id, role);
     }
@@ -90,9 +91,8 @@ public class RoleController {
     public User assignRolesToUser(@PathVariable String userId, @RequestBody List<String> roleIds) {
         User user = userService.findById(userId).orElseThrow();
         user.setRoles(roleIds);
-        // Add audit entry
         if (user.getRoleAssignmentAudit() == null) user.setRoleAssignmentAudit(new java.util.ArrayList<>());
-        user.getRoleAssignmentAudit().add("Roles set to: " + roleIds + " at " + System.currentTimeMillis());
+        user.getRoleAssignmentAudit().add("Roles set to: " + roleIds + " at " + new Date());
         return userService.updateUser(userId, user);
     }
 

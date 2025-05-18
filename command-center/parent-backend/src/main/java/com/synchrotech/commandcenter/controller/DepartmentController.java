@@ -7,7 +7,7 @@ import com.synchrotech.commandcenter.dto.request.user.AssignDepartmentManagerReq
 import com.synchrotech.commandcenter.service.user.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

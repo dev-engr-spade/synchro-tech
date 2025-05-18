@@ -4,14 +4,11 @@ import com.synchrotech.commandcenter.dto.request.user.UserRegistrationRequest;
 import com.synchrotech.commandcenter.dto.request.user.LoginRequest;
 import com.synchrotech.commandcenter.dto.request.user.PasswordResetRequest;
 import com.synchrotech.commandcenter.dto.request.user.PasswordResetConfirmRequest;
-import com.synchrotech.commandcenter.dto.request.user.MfaSetupRequest;
-import com.synchrotech.commandcenter.dto.request.user.MfaValidateRequest;
-import com.synchrotech.commandcenter.dto.request.user.MfaRecoveryRequest;
 import com.synchrotech.commandcenter.dto.response.auth.AuthResponse;
 import com.synchrotech.commandcenter.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * Authentication endpoints.
@@ -62,18 +59,4 @@ public class AuthController {
         return userService.confirmPasswordReset(request);
     }
 
-    @PostMapping("/mfa/setup")
-    public AuthResponse setupMfa(@Valid @RequestBody MfaSetupRequest request) {
-        return userService.setupMfa(request);
-    }
-
-    @PostMapping("/mfa/validate")
-    public AuthResponse validateMfa(@Valid @RequestBody MfaValidateRequest request) {
-        return userService.validateMfa(request);
-    }
-
-    @PostMapping("/mfa/recovery")
-    public AuthResponse useMfaRecovery(@Valid @RequestBody MfaRecoveryRequest request) {
-        return userService.useMfaRecoveryCode(request);
-    }
 } 

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Date;
 
 /**
  * Implementation of TenantService.
@@ -60,10 +61,10 @@ public class TenantServiceImpl implements TenantService {
         existing.setName(request.getName());
         existing.setSubdomain(request.getSubdomain());
         existing.setIndustry(request.getIndustry());
-        existing.setSettings(request.getSettings());
-        existing.setBranding(request.getBranding());
-        existing.setEnabledFeatures(request.getEnabledFeatures());
-        existing.setUpdatedAt(System.currentTimeMillis());
+        existing.setSettings(request.getSettings() instanceof Map ? (Map<String, Object>) request.getSettings() : null);
+        // existing.setBranding(request.getBranding());
+        // existing.setEnabledFeatures(request.getEnabledFeatures());
+        existing.setUpdatedAt(new Date());
         return tenantRepository.save(existing);
     }
 
@@ -93,8 +94,8 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public Tenant updateTenantSettings(String id, TenantSettings settings) {
         Tenant tenant = tenantRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tenant not found"));
-        tenant.setSettings(settings);
-        tenant.setUpdatedAt(System.currentTimeMillis());
+        tenant.setSettings(settings instanceof Map ? (Map<String, Object>) settings : null);
+        tenant.setUpdatedAt(new Date());
         return tenantRepository.save(tenant);
     }
 

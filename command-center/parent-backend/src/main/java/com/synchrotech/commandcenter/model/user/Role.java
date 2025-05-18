@@ -3,7 +3,7 @@ package com.synchrotech.commandcenter.model.user;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.index.Indexed;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,17 +17,10 @@ import java.util.List;
 public class Role {
     @Id
     private String id;
-
-    @Indexed
+    private String tenantId; // null for system roles
     private String name;
     private String description;
-    private List<String> permissionIds;
-    private String tenantId;
-    private String clonedFromRoleId;
-    private Long createdAt;
-    private Long updatedAt;
-    private String createdBy;
-    private String updatedBy;
-
-    // Getters and setters
+    private List<String> permissions;
+    private Date createdAt;
+    private Date updatedAt;
 } 

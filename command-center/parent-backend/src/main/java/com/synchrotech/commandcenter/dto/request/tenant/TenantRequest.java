@@ -3,8 +3,8 @@ package com.synchrotech.commandcenter.dto.request.tenant;
 import com.synchrotech.commandcenter.model.tenant.TenantSettings;
 import com.synchrotech.commandcenter.model.tenant.Branding;
 import lombok.Data;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**

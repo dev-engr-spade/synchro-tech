@@ -27,12 +27,3 @@ public class Department {
     private Long updatedAt;
 }
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-class DepartmentSettings {
-    private String description;
-    private boolean active;
-    // Add more department-specific settings as needed
-} 
