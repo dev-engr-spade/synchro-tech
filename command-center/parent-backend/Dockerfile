@@ -1,5 +1,5 @@
 # Use a base image with Java
-FROM openjdk:22-jdk-slim AS build
+FROM openjdk:21-jdk-slim AS build
 
 LABEL authors="Spade"
 
