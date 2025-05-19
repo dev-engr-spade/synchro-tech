@@ -1,0 +1,8 @@
+[phases.setup]
+aptPkgs = ["default-jdk", "maven"]
+
+[phases.build]
+cmds = ["mvn clean package -DskipTests"]
+
+[start]
+cmd = "java -jar target/commandcenter-0.1.0.jar"
