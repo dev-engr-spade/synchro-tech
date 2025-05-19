@@ -1,8 +1,24 @@
+
 [phases.setup]
-aptPkgs = ["default-jdk", "maven"]
+aptPkgs = ["wget", "maven", "ca-certificates"]
+cmds = [
+    # Download and install OpenJDK 22
+    "mkdir -p /opt/java",
+    "wget -q https://download.java.net/java/GA/jdk22/830ec9fcccef480bb3e73fb7ecafe059/36/GPL/openjdk-22_linux-x64_bin.tar.gz -O /tmp/openjdk22.tar.gz",
+    "tar -xzf /tmp/openjdk22.tar.gz -C /opt/java",
+    "update-alternatives --install /usr/bin/java java /opt/java/jdk-22/bin/java 1",
+    "update-alternatives --install /usr/bin/javac javac /opt/java/jdk-22/bin/javac 1",
+    "java -version"
+]
+
+# Set JAVA_HOME to OpenJDK 22
+[phases.setup.env]
+JAVA_HOME = "/opt/java/jdk-22"
+PATH = "/opt/java/jdk-22/bin:${PATH}"
 
 [phases.build]
-cmds = ["mvn clean package -DskipTests"]
+# Use the build script to find and build the Maven project
+cmds = ["chmod +x ./build.sh", "./build.sh"]
 
 [start]
 cmd = "java -jar target/commandcenter-0.1.0.jar"
