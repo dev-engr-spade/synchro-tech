@@ -11,7 +11,7 @@ COPY command-center/parent-backend/pom.xml .
 COPY command-center/parent-backend/src ./src
 
 # Build the application
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Use a smaller base image for the final image
 FROM amazoncorretto:21
