@@ -1,9 +1,31 @@
-FROM openjdk:22-jdk-alpine
+# Use a base image with Java
+FROM openjdk:22-jdk-slim AS build
 
 LABEL authors="Spade"
 
+# Set the working directory
 WORKDIR /app
 
-COPY target/commandcenter-0.1.0.jar app.jar
+# Copy the Maven build file
+COPY command-center/parent-backend/pom.xml .
 
-CMD: ["java", "-jar", "app.jar"]
+# Copy the source code
+COPY command-center/parent-backend/src ./src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Use a smaller base image for the final image
+FROM openjdk:22-jre-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the built JAR file from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the application port (default Spring Boot port)
+EXPOSE 8080
+
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
