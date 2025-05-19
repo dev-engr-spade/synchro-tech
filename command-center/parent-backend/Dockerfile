@@ -1,7 +1,5 @@
-# Use a base image with Java
-FROM openjdk:21-jdk-slim AS build
-
-LABEL authors="Spade"
+# Use Amazon Corretto 21 as the base image
+FROM amazoncorretto:21 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -13,10 +11,10 @@ COPY command-center/parent-backend/pom.xml .
 COPY command-center/parent-backend/src ./src
 
 # Build the application
-RUN ./mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Use a smaller base image for the final image
-FROM openjdk:21-jre-slim
+FROM amazoncorretto:21
 
 # Set the working directory
 WORKDIR /app
